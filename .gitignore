@@ -24,8 +24,8 @@ hs_err_pid*
 
 target/
 docs/
-excel/
-json/
+test/excel/
+test/json/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
