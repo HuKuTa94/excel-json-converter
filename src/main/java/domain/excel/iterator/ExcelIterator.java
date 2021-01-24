@@ -1,17 +1,42 @@
 package domain.excel.iterator;
 
-public interface ExcelIterator
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+
+/**
+ * Base class of excel iterator.
+ * */
+abstract class ExcelIterator
 {
-    String nextLanguage();
-    boolean hasNextLanguage();
-    void resetLanguageCursor();
+    XSSFSheet sheet;
 
-    String nextDictionaryName();
-    boolean hasNextDictionaryName();
+    byte languageCell;
+    byte languageCellStep;
+    private static final byte LANGUAGE_ROW = 0;
 
-    String nextWord();
-    boolean hasNextWord();
+    ExcelIterator( XSSFSheet sheet) {
+        this.sheet = sheet;
+    }
 
-    String nextDescription();
-    boolean hasNextDescription();
+    boolean isCellEmpty( short rowIndex, short cellIndex ) {
+        try {
+            Cell cell = sheet.getRow( rowIndex ).getCell( cellIndex );
+            return ( cell == null || cell.getCellType() == CellType.BLANK );
+        } catch ( NullPointerException ex ) {
+            return true;
+        }
+    }
+
+    public String nextLanguage() {
+        String value = sheet.getRow( LANGUAGE_ROW ).getCell( languageCell ).getStringCellValue();
+        languageCell++;
+        return value;
+    }
+
+    public boolean hasNextLanguage(){
+        return !isCellEmpty( LANGUAGE_ROW, languageCell );
+    }
+
+    public abstract void resetLanguageCursor();
 }
