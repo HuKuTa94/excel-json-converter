@@ -5,23 +5,24 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 /**
  * Iterator walks line by line in the excel table. Supports multi-language table but all cells must be filled.
  */
-public class LineByLineIterator extends AbstractBaseIterator
+public class DictionaryIterator extends ExcelIterator
 {
-    public LineByLineIterator( XSSFSheet sheet ) {
+    private byte dictionaryCell = 1;
+    private static final byte DICTIONARY_NAME_CELL_STEP = 2;
+    private static final byte DICTIONARY_ROW = 0;
+
+    private short wordCell = 0;
+    private short wordRow = 1;
+    private static final byte WORD_CELL_STEP = 2;
+
+    private short descriptionCell = 1;
+    private short descriptionRow = 1;
+    private static final byte DESCRIPTION_CELL_STEP = 2;
+
+    public DictionaryIterator( XSSFSheet sheet ) {
         super( sheet );
-    }
-
-    @Override
-    public String nextLanguage()
-    {
-        String language = sheet.getRow( LANGUAGE_ROW ).getCell( languageCell ).getStringCellValue();
-        languageCell += LANGUAGE_CELL_STEP;
-        return language;
-    }
-
-    @Override
-    public boolean hasNextLanguage() {
-        return !isCellEmpty( LANGUAGE_ROW, languageCell );
+        languageCell = 0;
+        languageCellStep = 2;
     }
 
     @Override
@@ -29,26 +30,22 @@ public class LineByLineIterator extends AbstractBaseIterator
         languageCell = 0;
     }
 
-    @Override
     public String nextDictionaryName() {
         String dictionary = sheet.getRow( DICTIONARY_ROW ).getCell( dictionaryCell ).getStringCellValue();
         dictionaryCell += DICTIONARY_NAME_CELL_STEP;
         return dictionary;
     }
 
-    @Override
     public boolean hasNextDictionaryName() {
         return sheet.getRow( DICTIONARY_ROW ).getCell( dictionaryCell ) != null;
     }
 
-    @Override
     public String nextWord() {
         String word = sheet.getRow( wordRow ).getCell( wordCell ).getStringCellValue();
         wordCell += WORD_CELL_STEP;
         return word;
     }
 
-    @Override
     public boolean hasNextWord() {
         if( isCellEmpty( wordRow, wordCell )) {
             wordRow++;
@@ -58,14 +55,12 @@ public class LineByLineIterator extends AbstractBaseIterator
         return true;
     }
 
-    @Override
     public String nextDescription() {
         String description = sheet.getRow( descriptionRow ).getCell( descriptionCell ).getStringCellValue();
         descriptionCell += DESCRIPTION_CELL_STEP;
         return description;
     }
 
-    @Override
     public boolean hasNextDescription() {
         if( isCellEmpty( descriptionRow, descriptionCell )) {
             descriptionRow++;
