@@ -1,4 +1,6 @@
-package domain.dto;
+package domain.dto.dictionary;
+
+import domain.dto.DTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,24 +10,24 @@ import java.util.List;
  * Includes {@link WordDto}. See example:
 * {
 *   "name": {   <- name of dictionary
-*       "ru": "Новый год",
-*       "en": "New year"
+*       "rus": "Новый год",
+*       "eng": "New year"
 *   },
 * 	"words": [  <- array of {@link WordDto}
 *        {
 * 			"word": {
-* 				"ru": "Ёлка",
-* 				"en": "Christmas tree"
+* 				"rus": "Ёлка",
+* 				"eng": "Christmas tree"
 *            },
 * 			"description": {
-* 				"ru": "Хвойное дерево с зелёными иголками",
-* 				"en": "Coniferous tree with green needles"
+* 				"rus": "Хвойное дерево с зелёными иголками",
+* 				"eng": "Coniferous tree with green needles"
 *            }
 *        },
 *        ...
 * 	]
 * }*/
-public class DictionaryDto
+public class DictionaryDto implements DTO
 {
     private HashMap<String, String> name;
     private ArrayList<WordDto> words;

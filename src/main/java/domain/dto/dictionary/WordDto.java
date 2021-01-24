@@ -1,9 +1,11 @@
-package domain.dto;
+package domain.dto.dictionary;
+
+import domain.dto.DTO;
 
 import java.util.HashMap;
 
 /** Class describes the structure of the json file. This class is included in {@link DictionaryDto} */
-public class WordDto
+public class WordDto implements DTO
 {
     private HashMap<String, String> word;
     private HashMap<String, String> description;
