@@ -2,24 +2,22 @@ package domain.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import domain.dto.DictionaryDto;
+import domain.dto.DTO;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public class DictionaryJsonWriter
+public abstract class JsonWriter
 {
-    private static final String DATA_FILE = "test.json";
-
-    public void write( DictionaryDto dictionaryDto, Path outDirectory, String fileName )
+    public static void write( DTO dto, Path jsonDir, String fileName )
     {
         try {
             // Write to JSON file
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String json = gson.toJson( dictionaryDto );
+            String json = gson.toJson( dto );
 
-            try ( FileWriter file = new FileWriter( Path.of( outDirectory.toString(), fileName.concat( ".json" )).toString() )) {
+            try ( FileWriter file = new FileWriter( Path.of( jsonDir.toString(), fileName.concat( ".json" )).toString() )) {
                 file.write( json );
             } catch (IOException e) {
                 e.printStackTrace();
