@@ -1,8 +1,10 @@
 package domain.excel.collection;
 
-import domain.excel.iterator.ExcelIterator;
+import domain.excel.iterator.DictionaryIterator;
+import domain.excel.iterator.LocaleIterator;
 
 public interface IterableExcelFile
 {
-    ExcelIterator getLineByLineIterator();
+    DictionaryIterator getDictionaryIterator();
+    LocaleIterator getLocaleIterator();
 }
