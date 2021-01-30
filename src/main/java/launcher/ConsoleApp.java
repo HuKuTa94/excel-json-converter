@@ -30,7 +30,7 @@ public class ConsoleApp
     {
         try {
             convertDictionaries();
-//            convertLocales();
+            convertLocales();
         } catch ( IOException e ) {
             e.printStackTrace();
         }

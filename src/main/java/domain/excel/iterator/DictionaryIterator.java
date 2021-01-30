@@ -26,6 +26,13 @@ public class DictionaryIterator extends ExcelIterator
     }
 
     @Override
+    public String nextLanguage() {
+        String value = sheet.getRow( LANGUAGE_ROW ).getCell( languageCell ).getStringCellValue();
+        languageCell += languageCellStep ;
+        return value;
+    }
+
+    @Override
     public void resetLanguageCursor() {
         languageCell = 0;
     }

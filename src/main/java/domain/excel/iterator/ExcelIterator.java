@@ -11,9 +11,9 @@ abstract class ExcelIterator
 {
     XSSFSheet sheet;
 
-    byte languageCell;
-    byte languageCellStep;
-    private static final byte LANGUAGE_ROW = 0;
+    protected byte languageCell;
+    protected byte languageCellStep;
+    protected static final byte LANGUAGE_ROW = 0;
 
     ExcelIterator( XSSFSheet sheet) {
         this.sheet = sheet;
